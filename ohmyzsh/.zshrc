@@ -203,6 +203,10 @@ function gpls() {
 	gpl $1 && gps
 }
 
+function linelog() {
+	git log --pretty=short -u -L $1,$2:$3
+}
+
 # Compatible in all bash versions
 # Automatically switches between work and personal git profiles
 # You have to setup your SSH keys for each profile
