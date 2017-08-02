@@ -156,7 +156,7 @@ function startgit() {
 function gcn() {
 	hosts=( "github.com:personalGit"
         "gecgithub01.walmart.com:walmartGit"
-        "vcm.wal-mart.com:walmartBit")
+        "vcm.wal-mart.com:walmartBit" )
 	ssh_url=$1
 	for host in "${hosts[@]}" ; do
 		KEY=${host%%:*}
