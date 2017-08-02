@@ -7,6 +7,7 @@ export ZSH=/Users/vpikkal/.oh-my-zsh
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+# ZSH_THEME="robbyrussell"
 ZSH_THEME="robbyrussell"
 
 # Uncomment the following line to use case-sensitive completion.
@@ -130,6 +131,23 @@ function gacp() {
 	gps
 }
 
+# create git repo from terminal
+function startgit() {
+	repo=$1
+	if [ -z "$1" ]; then
+		repo=${PWD##*/}
+		echo "Repo name ${repo}"
+	fi
+	curl -u 'Venugopal46' https://api.github.com/user/repos -d '{"name": "'${repo}'"}'
+	echo '# '${repo}'' >> README.md
+	git init
+	gemail venu.siddu46@gmail.com
+	ga
+	gcm "First Commit"
+	git remote add origin git@personalGit:Venugopal46/${repo}.git
+	git push --set-upstream origin master
+}
+
 # Compatible in all bash versions
 # Automatically switches between work and personal git profiles
 # You have to setup your SSH keys for each profile
@@ -137,7 +155,8 @@ function gacp() {
 # Developed using http://mherman.org/blog/2013/09/16/managing-multiple-github-accounts/
 function gcn() {
 	hosts=( "github.com:personalGit"
-        "url2:name2")
+        "gecgithub01.walmart.com:walmartGit"
+        "vcm.wal-mart.com:walmartBit")
 	ssh_url=$1
 	for host in "${hosts[@]}" ; do
 		KEY=${host%%:*}
@@ -146,12 +165,7 @@ function gcn() {
  		then
  			echo "Cloning with $VALUE profile..."
  			git clone "${ssh_url/$KEY/$VALUE}"
-
-      echo ${${ssh_url#*/*}%%.git*}
-
  			cd ${${ssh_url#*/*}%%.git*}
-
-      echo $VALUE
       if [ $VALUE = "personalGit" ]
       then
         echo "Setting gemail"
